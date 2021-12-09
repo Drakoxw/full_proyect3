@@ -1,42 +1,60 @@
 
 <?php
 require_once "funciones/func_archivos.php";
-$id = array_shift($paths);
+$id_archivo = array_shift($paths);
 
-if (empty($id)){
-  switch ($method){
-    
+
+if (empty($id_archivo)) {
+  switch ($method) {
     case 'POST':
-      echo ('POST ok');
-      header('HTTP/1.1 200 OK');
+      $data = json_decode(file_get_contents('php://input'), true);
+      $id = GuardarArchivo($mysqli, $data);
+      if ($id) {
+        echo json_encode($id);
+        header('HTTP/1.1 201 Created');
+      }
       break;
-
     default:
-      header('HTTP/1.1 405 Method Not Allowed');
+      header('HTTP/1.1 400 Bad Request');
       header('Allow: POST');
       break;
   }
+
 } else {
-
-  switch ($method) {
-
+  switch ($method){
     case 'GET':
-      echo ('GET ok');
+      $resp = LeerArchivo ($mysqli,$id_archivo);
+      $resp['base'] = "data:".$resp['tipo'].";base64,".$resp['base'];
+      $resp['name'] = $resp['name'].".".$resp['ext'];
+      unset($resp['ext']);
       header('HTTP/1.1 200 OK');
-      break;
-      
-    case 'PATCH':
-      echo ('PATCH ok');
-      header('HTTP/1.1 200 OK');
+      echo json_encode($resp);
       break;
 
     case 'DELETE':
-      echo ('DEL ok');
-      break;
-
+      $query = "SELECT * FROM archivos WHERE id=$id_archivo ";
+      $data=GetData($mysqli,$query);
+      if ($data) {
+        $data = $data[$id_archivo];
+        $ruta = $data['path'];
+        $resp = unlink($ruta);
+        if ($resp) {
+          $query = "DELETE FROM archivos where id=$id_archivo";
+          $r = $mysqli->query($query);
+          if ($r) {
+            $r = array("message" => "Delete All Id: $id_archivo");
+            header('HTTP/1.1 200 OK');
+            echo json_encode($r);
+            break;
+          }
+        }
+      } else {
+        header('HTTP/1.1 404 Not Found');
+        break;
+      }
     default:
-      header('HTTP/1.1 405 Method Not Allowed');
-      header('Allow: GET, DELETE, PATCH');
+      header('HTTP/1.1 400 Bad Request');
+      header('Allow: GET, DELETE');
       break;
   }
 

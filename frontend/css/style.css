@@ -1,0 +1,59 @@
+
+.w50{width: 50%!important;}
+.w_mod{width: 33%!important;}
+.w100{ width: 100%; }
+.h100{ height: 100%; }
+.h50{ height: 50%; }
+.contedor_p{
+    width: 100%;
+    height: 100%;
+}
+/* **********↓↓↓ TABLA ↓↓↓*********** */
+.tab_cont, .edit_cont{
+    width: 100%;
+    height: calc(50% - 30px);
+    overflow: auto;
+}
+
+/* **********↑↑↑ TABLA ↑↑↑*********** */
+/* **********↓↓↓ FORMULARIO ↓↓↓*********** */
+.edit_cont{
+    border-radius: 8px;
+    box-shadow: 6px 5px 9px 1px;
+    margin-bottom: 3rem;
+    padding: .8rem;
+}
+.form_post{
+    width: 100%;
+    justify-content: center;
+}
+.form-label {
+    display: inline-flex!important;
+}
+.mtm{
+    margin-top: 6px;
+    margin-right: 5px;
+}
+/*  QUITAR SELECT DE INPUT NUMBER */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* **********↑↑↑ FORMULARIO ↑↑↑*********** */
+/* 645 */
+@media (max-width: 950px) {
+    .last {
+      display: none;
+    }
+    .w_mod{
+        width: 40%!important;
+    }
+  }
+@media (max-width: 645px) {
+    .w_mod{
+        width: 50%!important;
+    }
+  }
+
+
