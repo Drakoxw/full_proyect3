@@ -6,15 +6,15 @@ $id_archivo = array_shift($paths);
 
 if (empty($id_archivo)) {
   switch ($method) {
+
     case 'POST':
       $data = json_decode(file_get_contents('php://input'), true);
-      //echo json_encode($data);
       $id = GuardarArchivo($mysqli, $data);
       if ($id) {
         echo json_encode($id);
         header('HTTP/1.1 201 Created');
       }
-      break;
+      break; 
 
     default:
       header('HTTP/1.1 400 Bad Request');

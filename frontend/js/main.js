@@ -197,6 +197,7 @@ HtmlInput.addEventListener('change', () => {
 	base64(file).then(res => {
 		HtmlImg.src = res.base;
 		postImg(res);
+    console.log(res.base);
 	});
 }) 
 

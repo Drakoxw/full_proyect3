@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-12-2021 a las 21:39:28
+-- Tiempo de generación: 09-12-2021 a las 12:36:17
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 7.3.33
 
@@ -35,6 +35,17 @@ CREATE TABLE `archivos` (
   `ext` varchar(20) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `archivos`
+--
+
+INSERT INTO `archivos` (`id`, `path`, `name`, `tipo`, `ext`) VALUES
+(3, 'C:/xampp/htdocs/archivos/4b61ed27814421ec.PNG', '4b61ed27814421ec', 'image/png', 'PNG'),
+(4, 'C:/xampp/htdocs/archivos/216e05232fb763f9.png', '216e05232fb763f9', 'image/png', 'png'),
+(5, 'C:/xampp/htdocs/archivos/503d056b0239be24.png', '503d056b0239be24', 'image/png', 'png'),
+(6, 'C:/xampp/htdocs/archivos/37aa7b8259722ce7.jpg', '37aa7b8259722ce7', 'image/jpeg', 'jpg'),
+(7, 'C:/xampp/htdocs/archivos/9b06a06f44cc8d48.jpg', '9b06a06f44cc8d48', 'image/jpeg', 'jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -58,11 +69,9 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`referencia`, `nombre_producto`, `observaciones`, `precio`, `impuesto`, `cantidad`, `estado`, `imagen`, `ruta_imagen`) VALUES
-(2, 'pantalones', 'son shorts', '65000.00', '17.65', 5, 'activo', 'pant.jpg', 'path/img/pant.jpg'),
-(3, 'camisa', 'esta manchada', '47000.00', '15.65', 10, 'activo', 'camisa.png', 'path/img/camisa.png'),
-(4, 'camiseta', 'muy bonita', '47000.00', '15.55', 7, 'activo', 'camisa.png', 'path/img/camisa.png'),
-(5, 'buso', '100% algodon', '56000.00', '17.10', 3, 'activo', 'buso.png', 'path/img/buso.png'),
-(6, 'Zapatos', 'negros', '125000.00', '12.33', 3, 'activo', 'zap.png', 'path/img/zap.png');
+(17, 'Viaje', 'a Guatapé', '65.00', '4.00', 12, 'activo', '1.PNG', '3'),
+(18, 'Turismo', 'a Guatapé', '12000.00', '4.00', 3, 'activo', '1.PNG', '6'),
+(19, 'blusas tiras', 'no coment', '34000.00', '12.99', 8, 'activo', '1.PNG', '7');
 
 --
 -- Índices para tablas volcadas
@@ -88,13 +97,13 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `archivos`
 --
 ALTER TABLE `archivos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `referencia` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `referencia` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
