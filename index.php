@@ -22,14 +22,13 @@ class Server{
 		$resource = array_shift($paths);
 
 		switch ($resource) {
+			case 'archivo':
+			   require_once "modulos/archivos.php";
+			   break;
 			case 'productos':
-       // echo($resource);
 				require_once "modulos/$resource.php";
 				break;
-      case 'archivos':
-        echo($resource);
-				//require_once "modulos/$resource.php";
-				break;
+				
 			default:
 				header('HTTP/1.1 404 Not Found');
 				break;

@@ -10,7 +10,7 @@ if (empty($id)){
       $query = "SELECT * FROM productos ";
       $data = GetData($mysqli,$query);
       echo json_encode($data);
-      header('HTTP/1.1 200 OK');
+      header('HTTP/1.1 201 OK');
       break;
 
     case 'POST':
@@ -46,6 +46,9 @@ if (empty($id)){
       if (array_key_exists($id, $camp)){
         $data = json_decode(file_get_contents('php://input'), true);
         unset($data['referencia']);
+        if (empty($data['ruta_imagen'])) {
+          unset($data['ruta_imagen']);
+        }
         $postId = UpdateData($mysqli, $data, 'productos',$id);
         header('HTTP/1.1 200 OK');
         echo json_encode($postId);

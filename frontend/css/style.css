@@ -41,6 +41,28 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 /* **********↑↑↑ FORMULARIO ↑↑↑*********** */
+
+.bg_modal{
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+}
+
+.bt_close{
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+}
+.cont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* 645 */
 @media (max-width: 950px) {
     .last {

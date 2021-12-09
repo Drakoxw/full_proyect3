@@ -2,5 +2,6 @@ RewriteEngine On
 RewriteBase /
 options +FollowSymLinks
 RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule ^(.*) - [E=HTTP_AUTHORIZATION:%1]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule .* index.php/$0 [L]
