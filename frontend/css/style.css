@@ -1,6 +1,6 @@
 
 .w50{width: 50%!important;}
-.w_mod{width: 33%!important;}
+.w_mod{width: 50%!important;}
 .w100{ width: 100%; }
 .h100{ height: 100%; }
 .h50{ height: 50%; }
@@ -41,8 +41,15 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 /* **********↑↑↑ FORMULARIO ↑↑↑*********** */
+.cont_form2{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+/* **********↑↑↑ FORMULARIO ↑↑↑*********** */
 
-.bg_modal{
+.bg_modal, .bg_modal_post{
     width: 100%;
     height: 100%;
     top: 0;
@@ -65,17 +72,17 @@ input::-webkit-inner-spin-button {
 
 /* 645 */
 @media (max-width: 950px) {
-    .last {
+    /* .last {
       display: none;
     }
     .w_mod{
         width: 40%!important;
-    }
+    } */
   }
 @media (max-width: 645px) {
-    .w_mod{
+    /* .w_mod{
         width: 50%!important;
-    }
+    } */
   }
 
 

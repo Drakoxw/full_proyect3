@@ -9,12 +9,16 @@ if (empty($id_archivo)) {
 
     case 'POST':
       $data = json_decode(file_get_contents('php://input'), true);
+      $id2 = $data['referencia'];
+      unset($data['referencia']);
       $id = GuardarArchivo($mysqli, $data);
-      if ($id) {
-        echo json_encode($id);
+      if ($id){
+        $data_ref = array('ruta_imagen' => $id['id']);
+        $id_patch = UpdateData($mysqli, $data_ref, 'productos', $id2);
+        echo json_encode($id_patch);
         header('HTTP/1.1 201 Created');
+        break;
       }
-      break; 
 
     default:
       header('HTTP/1.1 400 Bad Request');

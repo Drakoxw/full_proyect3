@@ -1,12 +1,13 @@
-axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
-axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-
 const URL_api = 'http://localhost';
+let Base;
+
 const htmlTabla = document.getElementById('tabla_cont');
 const HtmlInput = document.getElementById('formFileSm');
 const HtmlImg = document.getElementById('img_d');
 const HtmlForm = document.getElementById('form_post');
+const HtmlFormImg = document.getElementById('form_post_img');
 const HtmlModal = document.getElementById('bg_modal');
+const HtmlModalPost = document.getElementById('bg_modal_post');
 const HtmlImgBase = document.getElementById('img_base');
 const btnSub = document.getElementById('sumit');
  
@@ -14,19 +15,24 @@ let id_img = '';
 let id_doc = '';
 btnSub.textContent = 'Enviar';
 
+/**
+ * Trae la imagen del back
+ */
 function getImg(id){
   let base;
   axios.get(`${URL_api}/archivo/${id}` )
   .then(res => {
-    console.log(res);
     base = res.data.base
     HtmlModal.style.display = 'block';
     HtmlImgBase.src = base;
   });
 }
-
+/**
+ * cierra la modal donde se muestra la imagen
+ */
 function cerrarModal(){
   HtmlModal.style.display = 'none';
+  HtmlModalPost.style.display = 'none';
 }
 
 function setEdit(id){
@@ -34,7 +40,6 @@ function setEdit(id){
   axios.get(`${URL_api}/productos/${id}` )
   .then(res => {
     let dat = res.data[id];
-    console.log(dat);
     id_doc = dat.referencia;
     document.getElementById('nombre_prod').value = dat.nombre_producto;
     document.getElementById('desc_prod').value = dat.observaciones;
@@ -55,7 +60,6 @@ const base64 = async function (file) {
 					blob: file,
 					base: reader.result,
 				});
-
 			};
 			reader.onerror = (err) => {
 				resolve({
@@ -73,14 +77,31 @@ const base64 = async function (file) {
 
 const postImg= async function(img) {
 	let data = {
+		referencia: id_doc,
 		base: img.base,
 		tipo: img.blob.type,
 		name: img.blob.name,
 		ext: String(img.blob.name).split('.')[1],
 	}
-  axios.post(`${URL_api}/archivo`,data )
-  .then(res => console.log(res));
-	
+	axios.post(`${URL_api}/archivo`, data)
+	.then(dat => {
+		id_img = dat.data.id;
+	}).catch((err) => {
+		console.log(`err`, err);
+	});
+}
+
+function postearBase(id){
+	id_doc = id;
+	HtmlModalPost.style.display = 'block';
+}
+
+function eliminar(id) {
+	let ok = confirm('Desea Eliminar este Registro');
+	if (ok) {
+		axios.delete(`${URL_api}/productos/${id}`)
+		.then(() => getAllDatos() );
+	}
 }
 
 const enviarDatos = function () {
@@ -98,32 +119,27 @@ const enviarDatos = function () {
     cantidad,
     impuesto,
     estado,
-    imagen : HtmlInput.files[0] ? HtmlInput.files[0].name: '' ,
-    ruta_imagen: id_img
+    imagen :'' ,
+    ruta_imagen: ''
   }
   if (boton == 'Enviar') {
-    if (HtmlInput.files[0]) {
       if (nombre_producto,observaciones,precio,
           cantidad,impuesto,estado) {
         axios.post(`${URL_api}/productos`,data )
         .then(res => {
           console.log(res);
           HtmlForm.reset();
-          HtmlInput.value = null;
           HtmlImg.src = '';
           getAllDatos();
         }).catch(err => console.log('err', err));
       }
-    } else {
-      alert('Falta la imagen');
-    }
+    
   } else if (boton == 'Editar Archivos') {
     if (!HtmlInput.files[0]) {
       delete data.imagen;
     }
     axios.patch(`${URL_api}/productos/${id_doc}`,data )
     .then(res => {
-      console.log(res);
       HtmlForm.reset();
       HtmlInput.value = null;
       HtmlImg.src = '';
@@ -133,8 +149,6 @@ const enviarDatos = function () {
   }
 	
 }
-
-
 
 const getAllDatos = () => {
 	let dataFetch = [];
@@ -147,8 +161,7 @@ const getAllDatos = () => {
 				dataFetch.push(el);
 			}
 		}
-		console.log('data', dataFetch);
-		printData(dataFetch)
+		printData(dataFetch);
   })
 	.catch(err => console.log('err',err));
 }
@@ -170,22 +183,37 @@ const printData = (data) => {
           data-id="${el.ruta_imagen}" onclick="getImg(${el.ruta_imagen})" >
 					Ver Img
 				</button>
+
 			</td>
 			<td>
+			
+				<button type="button" class="btn btn-primary btn_click"  onclick="postearBase(${el.referencia})" >
+					Subir Img
+				</button>
 				<button type="button" class="btn btn-warning" onclick="setEdit(${el.referencia})" >
 					Editar
 				</button>
-				<button type="button" class="btn btn-danger ml-2">
+				<button type="button" class="btn btn-danger ml-2" onclick="eliminar(${el.referencia})">
 					Eliminar
 				</button>
+
 			</td>
 		</tr>
 		`
 	});
 	htmlTabla.innerHTML = tablaContent;
 }
+
+
+
 ////////////////// EVENTOS //////////////////
 
+
+HtmlFormImg.addEventListener('submit', (ev) => {
+	ev.preventDefault();
+	postImg(Base);
+	
+});
 
 HtmlForm.addEventListener('submit', (ev) => {
 	ev.preventDefault();
@@ -195,9 +223,8 @@ HtmlForm.addEventListener('submit', (ev) => {
 HtmlInput.addEventListener('change', () => {
 	const file = HtmlInput.files[0];
 	base64(file).then(res => {
+		Base = res;
 		HtmlImg.src = res.base;
-		postImg(res);
-    console.log(res.base);
 	});
 }) 
 

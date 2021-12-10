@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-12-2021 a las 12:36:17
+-- Tiempo de generación: 10-12-2021 a las 10:12:34
 -- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 7.3.33
+-- Versión de PHP: 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,11 +40,8 @@ CREATE TABLE `archivos` (
 --
 
 INSERT INTO `archivos` (`id`, `path`, `name`, `tipo`, `ext`) VALUES
-(3, 'C:/xampp/htdocs/archivos/4b61ed27814421ec.PNG', '4b61ed27814421ec', 'image/png', 'PNG'),
-(4, 'C:/xampp/htdocs/archivos/216e05232fb763f9.png', '216e05232fb763f9', 'image/png', 'png'),
-(5, 'C:/xampp/htdocs/archivos/503d056b0239be24.png', '503d056b0239be24', 'image/png', 'png'),
-(6, 'C:/xampp/htdocs/archivos/37aa7b8259722ce7.jpg', '37aa7b8259722ce7', 'image/jpeg', 'jpg'),
-(7, 'C:/xampp/htdocs/archivos/9b06a06f44cc8d48.jpg', '9b06a06f44cc8d48', 'image/jpeg', 'jpg');
+(29, 'C:/xampp/htdocs/archivos/d4a41e372078fb44.jpg', 'd4a41e372078fb44', 'image/jpeg', 'jpg'),
+(30, 'C:/xampp/htdocs/archivos/de2aa2abf0b55888.webp', 'de2aa2abf0b55888', 'image/webp', 'webp');
 
 -- --------------------------------------------------------
 
@@ -69,9 +66,8 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`referencia`, `nombre_producto`, `observaciones`, `precio`, `impuesto`, `cantidad`, `estado`, `imagen`, `ruta_imagen`) VALUES
-(17, 'Viaje', 'a Guatapé', '65.00', '4.00', 12, 'activo', '1.PNG', '3'),
-(18, 'Turismo', 'a Guatapé', '12000.00', '4.00', 3, 'activo', '1.PNG', '6'),
-(19, 'blusas tiras', 'no coment', '34000.00', '12.99', 8, 'activo', '1.PNG', '7');
+(23, 'Camisa', 'Negra', '56000.00', '13.45', 3, 'activo', '', '29'),
+(24, 'Pantalon', 'Corto', '78000.00', '12.99', 7, 'activo', '', '30');
 
 --
 -- Índices para tablas volcadas
@@ -97,13 +93,13 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `archivos`
 --
 ALTER TABLE `archivos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `referencia` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `referencia` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
